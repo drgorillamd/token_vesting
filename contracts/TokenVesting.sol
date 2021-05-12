@@ -1,9 +1,13 @@
 pragma solidity 0.8.0;
 /*
-* Locking Pancakeswap token until release_time (expressed in Unix epoch time)
+* Linerar vesting of ERC20 token until release_time (expressed in Unix epoch time)
 * See https://www.unixtimestamp.com/ for conversion
 * + wallet migration possibilities (without locking removal)
+* Read the doc.
+*
+* Coded for KimJongMoon by @DrGorilla_md (DM Twitter/TG for enquiries)
 */
+
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
@@ -14,7 +18,7 @@ contract TokenVesting {
     IERC20 kimj_contract;
     uint256 public release_time;
     uint256 public start_time;
-    uint8 public factor = 2;
+    uint8 public factor = 2;  // amount linearly vested = initial_deposit / factor; rest at expiration
     uint256 public initial_deposit;
     uint256 public claimed;
     address public wallet;
@@ -35,7 +39,7 @@ contract TokenVesting {
 
     //every token transfered after starting the vesting can be
     //withdraw at the end of the vesting period
-    function start_vesting () public {
+    function start_vesting () public onlyOwner {
         initial_deposit = kimj_contract.balanceOf(address(this));
         claimed = 0;
     }
@@ -47,7 +51,8 @@ contract TokenVesting {
     }
 
     //number of token claimable in the contract balance
-    function pending_token() public view returns (uint256){
+    //re-test for release_time so can be used for display purpose as well
+    function pending_token() public view returns (uint256){ 
         if(release_time >= block.timestamp) {
             uint duration = release_time.sub(start_time);
             uint total_vested = initial_deposit.div(factor);
