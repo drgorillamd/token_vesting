@@ -1,1 +1,12 @@
-Token vesting
+#Token vesting Solidity
+
+Coded for KimJongMoon - may the odd ever be in their favor.
+
+- Constructor parameters are the timestamp of the end of vesting period (in unix format, see unixtimestamp.com for instance) and the address of KimJongMoon token ($KIMJ), currently 0x737f0e47c4d4167a3eecde5fa87306b6eee3140e
+- Contract set a "factor" to 2 -> half of the token are linearly vested until the end of the vesting period (the whole contract balance is withdrawable at expiration)
+
+#Use
+Deploy the contract on the same chain as the token (BSC in this case, but any EVM would do the trick)
+Pass appropriate parameters to the constructor
+Once deployed, send the token to the contract (ONLY the one passed as parameter of the constructor)
+Call the start_vesting() function
