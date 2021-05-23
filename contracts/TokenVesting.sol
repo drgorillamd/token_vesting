@@ -8,8 +8,10 @@ pragma solidity 0.8.0;
 * Coded for KimJongMoon by @DrGorilla_md (DM Twitter/TG for enquiries)
 */
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+//import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+//import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "https://github.com/OpenZepellin/contracts/token/ERC20/IERC20.sol";
+import "https://github.com/OpenZepellin/contracts/utils/math/SafeMath.sol";
 
 contract TokenVesting {
 
